@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syncfluence — The Creator Trust Standard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Geist:wght@300;400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+:root{
+  --cream:#F7F4EE;
+  --cream2:#F0EDE5;
+  --cream3:#E8E3D8;
+  --ink:#111008;
+  --ink2:#2C2A22;
+  --ink3:#6B6860;
+  --ink4:#9B9890;
+  --violet:#5B4CF5;
+  --vl:#7B6EF6;
+  --vp:#ECEAFF;
+  --white:#FFFFFF;
+  --border:rgba(17,16,8,0.1);
+  --bl:rgba(17,16,8,0.06);
+}
+body{font-family:'Geist',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+
+/* ══════════════════════════════
+   TOP ANNOUNCEMENT SCROLLER
+══════════════════════════════ */
+.top-scroller{
+  background:var(--ink);
+  height:36px;overflow:hidden;position:relative;z-index:300;
+  display:flex;align-items:center;
+}
+.top-scroller-track{
+  display:flex;width:max-content;
+  animation:scrollL 35s linear infinite;
+  align-items:center;height:100%;
+}
+.ts-item{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:0 40px;
+  font-size:12px;font-weight:500;color:rgba(255,255,255,0.65);
+  white-space:nowrap;border-right:1px solid rgba(255,255,255,0.1);
+  height:100%;
+}
+.ts-item em{color:#fff;font-style:normal;font-weight:600;}
+.ts-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+@keyframes scrollL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ══════════════════════════════
+   NAV
+══════════════════════════════ */
+nav{
+  position:sticky;top:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:rgba(247,244,238,0.92);
+  backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--bl);
+}
+.logo{font-family:'Instrument Serif',serif;font-size:20px;font-style:italic;color:var(--ink);letter-spacing:-0.02em;}
+.logo span{color:var(--violet);}
+.nav-r{display:flex;align-items:center;gap:28px;}
+.nl{font-size:13px;color:var(--ink3);text-decoration:none;transition:color .2s;}
+.nl:hover{color:var(--ink);}
+.nb{background:var(--ink);color:var(--cream);border:none;padding:9px 20px;border-radius:8px;font-family:'Geist',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:background .2s,transform .15s;letter-spacing:-.01em;}
+.nb:hover{background:var(--violet);transform:translateY(-1px);}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:80px 24px;
+  position:relative;overflow:hidden;
+  background:var(--cream);
+}
+/* grid */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--bl) 1px,transparent 1px),linear-gradient(90deg,var(--bl) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%);
+}
+
+/* REEL BACKGROUND COLUMNS */
+.reel-bg{
+  position:absolute;
+  top:0;left:0;width:100%;height:100%;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:6px;
+  padding:0 6px;
+  align-items:flex-start;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
+}
+/* vignette overlay — reels clearly visible on sides, fades to near-transparent in center */
+.reel-overlay{
+  position:absolute;
+  top:0;left:0;right:0;bottom:0;
+  pointer-events:none;
+  z-index:1;
+  background:
+    radial-gradient(ellipse 50% 60% at 50% 45%, rgba(247,244,238,0.97) 0%, rgba(247,244,238,0.88) 30%, rgba(247,244,238,0.55) 52%, rgba(247,244,238,0.1) 70%, transparent 85%),
+    linear-gradient(to bottom, rgba(247,244,238,1) 0%, rgba(247,244,238,0.5) 5%, transparent 14%, transparent 82%, rgba(247,244,238,0.5) 95%, rgba(247,244,238,1) 100%),
+    linear-gradient(to right, rgba(247,244,238,0.85) 0%, rgba(247,244,238,0.3) 8%, transparent 16%, transparent 84%, rgba(247,244,238,0.3) 92%, rgba(247,244,238,0.85) 100%);
+}
+.reel-col{
+  display:flex;flex-direction:column;gap:6px;
+  animation:reelScroll 22s linear infinite;
+}
+.reel-col:nth-child(2){animation-duration:28s;animation-delay:-7s;}
+.reel-col:nth-child(3){animation-duration:18s;animation-delay:-12s;}
+.reel-col:nth-child(4){animation-duration:32s;animation-delay:-4s;}
+.reel-col:nth-child(5){animation-duration:24s;animation-delay:-16s;}
+.reel-col:nth-child(6){animation-duration:20s;animation-delay:-9s;}
+@keyframes reelScroll{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-50%);}
+}
+.reel-card{
+  border-radius:10px;
+  overflow:hidden;
+  flex-shrink:0;
+  width:100%;
+  aspect-ratio:9/16;
+  position:relative;
+  background:var(--c2,#1a0f2e);
+  opacity:0.55;
+}
+.reel-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(175deg,var(--c1,#3B3278) 0%,var(--c2,#1a0f2e) 100%);
+  opacity:1;
+}
+.reel-card::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(transparent 30%, rgba(0,0,0,0.72) 100%);
+}
+/* richer, more saturated color palettes */
+.rc-a{--c1:#2E7A28;--c2:#0D220A;}
+.rc-b{--c1:#7A2E8A;--c2:#280A35;}
+.rc-c{--c1:#1A4E7E;--c2:#081A30;}
+.rc-d{--c1:#9A2424;--c2:#300808;}
+.rc-e{--c1:#8A6A18;--c2:#281E05;}
+.rc-f{--c1:#187A60;--c2:#052820;}
+.rc-g{--c1:#6A2E8A;--c2:#200A30;}
+.rc-h{--c1:#2E5A8A;--c2:#0A1A2C;}
+.reel-inner{
+  position:absolute;inset:0;z-index:1;
+  display:flex;flex-direction:column;
+  padding:10px 9px;
+}
+.reel-photo{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,0.18);
+  margin-bottom:auto;
+  border:1.5px solid rgba(255,255,255,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;
+}
+.reel-actions{
+  position:absolute;right:7px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:12px;align-items:center;
+}
+.reel-act{display:flex;flex-direction:column;align-items:center;gap:2px;}
+.reel-act-ic{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:9px;}
+.reel-act-ct{font-size:7px;color:rgba(255,255,255,0.55);}
+.reel-bottom{margin-top:auto;}
+.reel-name{font-size:9px;font-weight:700;color:rgba(255,255,255,0.95);letter-spacing:-.01em;margin-bottom:2px;}
+.reel-stat{font-size:8px;color:rgba(255,255,255,0.6);}
+.reel-music{margin-top:5px;display:flex;align-items:center;gap:4px;}
+.reel-music-bar{display:flex;align-items:flex-end;gap:1px;height:10px;}
+.reel-music-bar span{width:2px;border-radius:1px;background:rgba(255,255,255,0.45);animation:musicBar 0.8s ease-in-out infinite alternate;}
+.reel-music-bar span:nth-child(2){height:6px;animation-delay:.1s;}
+.reel-music-bar span:nth-child(3){height:9px;animation-delay:.2s;}
+.reel-music-bar span:nth-child(4){height:4px;animation-delay:.15s;}
+.reel-music-bar span:nth-child(5){height:7px;animation-delay:.05s;}
+@keyframes musicBar{from{transform:scaleY(0.4)}to{transform:scaleY(1)}}
+
+.hero-content{
+  position:relative;z-index:2;
+  max-width:720px;text-align:center;
+}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);background:rgba(255,255,255,0.9);
+  border-radius:100px;padding:5px 14px 5px 5px;
+  font-size:12px;font-weight:500;color:var(--ink3);
+  margin-bottom:36px;
+  box-shadow:0 1px 6px rgba(0,0,0,0.07);
+  animation:riseIn .7s cubic-bezier(.16,1,.3,1) both;
+}
+.badge-dot{width:22px;height:22px;border-radius:50%;background:var(--violet);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;}
+
+.hero-h1{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(52px,8vw,96px);
+  line-height:.95;letter-spacing:-.04em;
+  color:var(--ink);margin-bottom:28px;
+  animation:riseIn .7s .1s cubic-bezier(.16,1,.3,1) both;
+}
+.hero-h1 .vi{font-style:italic;color:var(--violet);}
+
+.hero-sub{
+  font-size:clamp(16px,2vw,19px);line-height:1.65;
+  color:var(--ink3);font-weight:300;
+  max-width:500px;margin:0 auto 48px;
+  animation:riseIn .7s .18s cubic-bezier(.16,1,.3,1) both;
+}
+.hero-sub strong{color:var(--ink);font-weight:500;}
+
+.email-row{
+  display:flex;gap:10px;justify-content:center;
+  max-width:430px;margin:0 auto 18px;
+  animation:riseIn .7s .26s cubic-bezier(.16,1,.3,1) both;
+}
+.ei{
+  flex:1;background:rgba(255,255,255,0.95);border:1px solid var(--border);
+  border-radius:10px;padding:13px 18px;
+  font-family:'Geist',sans-serif;font-size:14px;color:var(--ink);
+  outline:none;transition:border-color .2s,box-shadow .2s;
+  box-shadow:0 1px 4px rgba(0,0,0,0.05);
+}
+.ei::placeholder{color:var(--ink4);}
+.ei:focus{border-color:var(--violet);box-shadow:0 0 0 3px rgba(91,76,245,.1);}
+.cbtn{
+  background:var(--violet);color:#fff;border:none;padding:13px 22px;border-radius:10px;
+  font-family:'Geist',sans-serif;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 2px 8px rgba(91,76,245,.3);
+}
+.cbtn:hover{background:#4A3CE0;transform:translateY(-1px);box-shadow:0 6px 20px rgba(91,76,245,.4);}
+
+.proof-row{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  font-size:13px;color:var(--ink4);
+  animation:riseIn .7s .34s cubic-bezier(.16,1,.3,1) both;
+}
+.avs{display:flex;}
+.av{width:28px;height:28px;border-radius:50%;border:2px solid var(--cream);margin-left:-8px;font-size:11px;font-weight:600;color:#fff;display:flex;align-items:center;justify-content:center;}
+.av:first-child{margin-left:0;}
+
+/* HERO SCORE CARD */
+.score-float{
+  background:rgba(255,255,255,0.96);
+  border:1px solid var(--border);border-radius:20px;padding:22px;
+  max-width:340px;margin:52px auto 0;
+  box-shadow:0 12px 48px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.04);
+  animation:riseIn .8s .4s cubic-bezier(.16,1,.3,1) both;
+  text-align:left;position:relative;z-index:2;
+}
+.sf-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.sf-lbl{font-size:11px;font-weight:600;color:var(--ink4);text-transform:uppercase;letter-spacing:.09em;}
+.sf-ok{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:#16A34A;background:#F0FDF4;border:1px solid #BBF7D0;padding:3px 9px;border-radius:100px;}
+.sf-ok::before{content:'';width:6px;height:6px;border-radius:50%;background:#22C55E;animation:p2 2s infinite;}
+@keyframes p2{0%,100%{opacity:1}50%{opacity:.4}}
+.sf-cr{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.sf-av{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#8B7FF8,#5B4CF5);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:20px;color:#fff;}
+.sf-nm{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.02em;}
+.sf-hn{font-size:12px;color:var(--ink4);margin-top:1px;}
+.sf-row{display:flex;align-items:center;gap:16px;margin-bottom:16px;}
+.sf-ring{position:relative;width:80px;height:80px;flex-shrink:0;}
+.sf-ring svg{transform:rotate(-90deg);}
+.sr-bg{fill:none;stroke:var(--cream2);stroke-width:6;}
+.sr-fg{fill:none;stroke:var(--violet);stroke-width:6;stroke-linecap:round;stroke-dasharray:201;stroke-dashoffset:201;animation:ringA 1.5s 1s cubic-bezier(.4,0,.2,1) forwards;}
+@keyframes ringA{to{stroke-dashoffset:27;}}
+.sf-mid{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.sr-n{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);}
+.sr-d{font-size:10px;color:var(--ink4);}
+.sf-bars{flex:1;display:flex;flex-direction:column;gap:9px;}
+.sbar-r{display:flex;align-items:center;gap:8px;}
+.sbar-l{font-size:11px;color:var(--ink4);width:68px;flex-shrink:0;}
+.sbar-w{flex:1;height:4px;background:var(--cream2);border-radius:4px;overflow:hidden;}
+.sbar-f{height:100%;border-radius:4px;animation:barA 1s 1.2s both;transform-origin:left;}
+@keyframes barA{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.sbar-v{font-size:11px;font-weight:600;color:var(--ink);width:28px;text-align:right;}
+.sf-tags{display:flex;gap:6px;flex-wrap:wrap;}
+.stag{font-size:11px;font-weight:500;padding:3px 9px;border-radius:6px;}
+.stag-v{background:var(--vp);color:var(--violet);border:1px solid rgba(91,76,245,.15);}
+.stag-g{background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0;}
+.stag-a{background:#FFFBEB;color:#92400E;border:1px solid #FDE68A;}
+
+/* ══════════════════════════════
+   ACTIVITY MARQUEE
+══════════════════════════════ */
+.mq-wrap{overflow:hidden;padding:16px 0;border-top:1px solid var(--bl);border-bottom:1px solid var(--bl);background:var(--white);}
+.mq-track{display:flex;width:max-content;animation:scrollL 30s linear infinite;}
+.mq-item{display:inline-flex;align-items:center;gap:8px;padding:0 36px;border-right:1px solid var(--bl);font-size:13px;color:var(--ink3);white-space:nowrap;}
+.mq-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+
+/* ══════════════════════════════
+   NEWSPAPER STATS SECTION
+══════════════════════════════ */
+.news-sec{background:var(--ink);padding:0;}
+.news-masthead{
+  border-bottom:3px double rgba(255,255,255,0.15);
+  padding:28px 48px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+.nm-title{
+  font-family:'UnifrakturMaguntia',cursive;
+  font-size:clamp(28px,4vw,44px);
+  color:rgba(255,255,255,0.9);
+  letter-spacing:.01em;
+}
+.nm-tagline{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-top:4px;}
+.nm-date{font-size:12px;color:rgba(255,255,255,.3);font-style:italic;}
+
+.news-body{
+  display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.news-col{padding:44px 48px;}
+.news-divider{background:rgba(255,255,255,.08);}
+.news-kicker{
+  font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-bottom:12px;
+}
+.news-stat{
+  font-family:'Instrument Serif',serif;
+  font-size:clamp(52px,6vw,84px);
+  font-weight:400;letter-spacing:-.04em;line-height:1;
+  color:#fff;margin-bottom:16px;
+}
+.news-stat .frac{color:var(--vl);}
+/* countup spans */
+.news-stat .num{display:inline-block;}
+.news-headline{
+  font-family:'Instrument Serif',serif;
+  font-size:22px;font-weight:400;color:rgba(255,255,255,.8);
+  line-height:1.3;margin-bottom:12px;letter-spacing:-.02em;
+}
+.news-body-txt{font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;border-top:1px solid rgba(255,255,255,.08);padding-top:12px;}
+
+.news-footer-bar{
+  padding:12px 48px;
+  display:flex;align-items:center;gap:24px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.nfb-item{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:.06em;}
+.nfb-sep{color:rgba(255,255,255,.1);}
+
+/* ══════════════════════════════
+   FEATURES
+══════════════════════════════ */
+.feat-sec{background:var(--cream);}
+.sec{max-width:1100px;margin:0 auto;padding:96px 32px;}
+.ey{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:20px;}
+.ey::before{content:'';display:block;width:16px;height:1px;background:var(--violet);}
+h2{font-family:'Instrument Serif',serif;font-size:clamp(34px,5vw,60px);font-weight:400;letter-spacing:-.03em;line-height:1.05;color:var(--ink);margin-bottom:14px;}
+h2 em{font-style:italic;color:var(--violet);}
+.lead{font-size:17px;color:var(--ink3);line-height:1.65;font-weight:300;max-width:500px;margin-bottom:56px;}
+
+.fg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bl);border:1px solid var(--bl);border-radius:16px;overflow:hidden;}
+.fc{background:var(--cream);padding:38px 32px;transition:background .25s;}
+.fc:hover{background:var(--white);}
+.fi-ic{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:22px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.fn{font-family:'Instrument Serif',serif;font-size:20px;font-weight:400;color:var(--ink);margin-bottom:9px;letter-spacing:-.02em;}
+.fd{font-size:14px;color:var(--ink3);line-height:1.65;font-weight:300;}
+
+/* ══════════════════════════════
+   STEPS (3 columns)
+══════════════════════════════ */
+.steps-sec{background:var(--white);}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--bl);}
+.sc{padding:48px 36px;border-right:1px solid var(--bl);transition:background .25s;}
+.sc:last-child{border-right:none;}
+.sc:hover{background:var(--cream);}
+.sno{font-family:'Instrument Serif',serif;font-size:76px;color:var(--cream2);line-height:1;margin-bottom:22px;letter-spacing:-.05em;transition:color .3s;}
+.sc:hover .sno{color:var(--vp);}
+.sname{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:9px;letter-spacing:-.02em;}
+.sdesc{font-size:14px;color:var(--ink3);line-height:1.65;font-weight:300;}
+
+/* ══════════════════════════════
+   WHO FOR
+══════════════════════════════ */
+.wg{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.wc{border-radius:20px;padding:52px 44px;position:relative;overflow:hidden;}
+.wc-dk{background:var(--ink);}
+.wc-lt{background:var(--white);border:1px solid var(--border);}
+.wtg{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;}
+.wc-dk .wtg{color:rgba(255,255,255,.3);}
+.wc-lt .wtg{color:var(--violet);}
+.wtitle{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;letter-spacing:-.03em;line-height:1.1;margin-bottom:13px;}
+.wc-dk .wtitle{color:#fff;}
+.wc-lt .wtitle{color:var(--ink);}
+.wbody{font-size:15px;line-height:1.65;font-weight:300;margin-bottom:32px;}
+.wc-dk .wbody{color:rgba(255,255,255,.4);}
+.wc-lt .wbody{color:var(--ink3);}
+.cklist{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.cklist li{display:flex;align-items:flex-start;gap:11px;font-size:14px;}
+.wc-dk .cklist li{color:rgba(255,255,255,.6);}
+.wc-lt .cklist li{color:var(--ink3);}
+.ck{width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;}
+.wc-dk .ck{background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);}
+.wc-lt .ck{background:var(--vp);color:var(--violet);}
+
+/* ══════════════════════════════
+   ROADMAP
+══════════════════════════════ */
+.rm-sec{background:var(--cream2);}
+.rm-inner{max-width:800px;margin:0 auto;padding:96px 32px;}
+.rm-ey{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:20px;}
+.rm-ey::before{content:'';display:block;width:16px;height:1px;background:var(--violet);}
+.rm-h2{font-family:'Instrument Serif',serif;font-size:clamp(34px,5vw,56px);font-weight:400;letter-spacing:-.03em;line-height:1.05;color:var(--ink);margin-bottom:14px;}
+.rm-h2 em{font-style:italic;color:var(--violet);}
+.rm-sub{font-size:17px;color:var(--ink3);line-height:1.65;font-weight:300;margin-bottom:72px;max-width:480px;}
+
+/* vertical timeline */
+.rm-list{position:relative;padding-left:0;}
+/* central line */
+.rm-list::before{
+  content:'';position:absolute;
+  left:28px;top:8px;bottom:8px;width:1px;
+  background:linear-gradient(to bottom,var(--violet),rgba(91,76,245,.1));
+}
+.rm-item{
+  display:flex;gap:28px;align-items:flex-start;
+  padding-bottom:56px;position:relative;
+}
+.rm-item:last-child{padding-bottom:0;}
+.rm-node{
+  width:56px;height:56px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Instrument Serif',serif;font-size:16px;font-weight:400;
+  position:relative;z-index:1;border:1px solid var(--border);
+  transition:transform .25s,box-shadow .25s;
+}
+.rm-item:hover .rm-node{transform:scale(1.08);box-shadow:0 4px 16px rgba(91,76,245,.2);}
+.rm-node-done{background:var(--violet);color:#fff;border-color:var(--violet);}
+.rm-node-active{background:var(--white);color:var(--violet);border-color:var(--violet);box-shadow:0 0 0 4px rgba(91,76,245,.1);}
+.rm-node-future{background:var(--white);color:var(--ink4);border-color:var(--bl);}
+.rm-body{flex:1;padding-top:12px;}
+.rm-q{
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:8px;
+}
+.rm-node-done+.rm-body .rm-q{color:var(--violet);}
+.rm-node-active+.rm-body .rm-q{color:var(--violet);}
+.rm-node-future+.rm-body .rm-q{color:var(--ink4);}
+.rm-title{
+  font-family:'Instrument Serif',serif;
+  font-size:24px;font-weight:400;letter-spacing:-.02em;
+  color:var(--ink);margin-bottom:10px;line-height:1.1;
+}
+.rm-desc{font-size:14px;color:var(--ink3);line-height:1.65;font-weight:300;margin-bottom:14px;}
+.rm-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.rm-chip{
+  font-size:12px;font-weight:500;padding:4px 11px;border-radius:6px;
+  background:var(--white);border:1px solid var(--border);color:var(--ink3);
+}
+.rm-chip.done{background:var(--vp);border-color:rgba(91,76,245,.2);color:var(--violet);}
+.rm-chip.active{background:#FFFBEB;border-color:#FDE68A;color:#92400E;}
+
+/* status pill on node */
+.rm-status{
+  position:absolute;top:-8px;right:-8px;
+  width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;
+}
+.rm-status-done{background:#22C55E;color:#fff;}
+.rm-status-active{background:var(--violet);color:#fff;animation:p2 2s infinite;}
+
+/* ══════════════════════════════
+   FORM
+══════════════════════════════ */
+.form-sec{background:var(--cream);}
+.form-wrap{max-width:540px;margin:0 auto;}
+.form-hd{text-align:center;margin-bottom:44px;}
+.pill-cnt{display:inline-flex;align-items:center;gap:7px;background:var(--white);border:1px solid var(--border);border-radius:100px;padding:5px 14px 5px 5px;font-size:12px;color:var(--ink3);margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.pill-cnt span{width:22px;height:22px;border-radius:50%;background:var(--violet);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.form-card{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:44px;box-shadow:0 4px 24px rgba(0,0,0,.06);}
+.ffields{display:flex;flex-direction:column;gap:12px;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+label{display:block;font-size:12px;font-weight:500;color:var(--ink3);margin-bottom:5px;letter-spacing:.02em;}
+.fi{width:100%;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-family:'Geist',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border-color .2s,background .2s,box-shadow .2s;}
+.fi::placeholder{color:var(--ink4);}
+.fi:focus{border-color:var(--violet);background:#fff;box-shadow:0 0 0 3px rgba(91,76,245,.08);}
+.fi option{background:#fff;}
+.sbtn{width:100%;margin-top:6px;background:var(--ink);color:var(--cream);border:none;border-radius:10px;padding:15px;font-family:'Geist',sans-serif;font-size:15px;font-weight:500;cursor:pointer;letter-spacing:-.02em;transition:background .2s,transform .15s;}
+.sbtn:hover{background:var(--violet);transform:translateY(-1px);}
+.fnote{font-size:12px;color:var(--ink4);text-align:center;margin-top:12px;}
+.fnote a{color:var(--ink3);}
+.succ{display:none;text-align:center;padding:44px 0;}
+.succ-ic{width:60px;height:60px;border-radius:50%;background:#F0FDF4;border:1px solid #BBF7D0;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 20px;animation:pop .5s cubic-bezier(.16,1,.3,1) both;}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.succ-h{font-family:'Instrument Serif',serif;font-size:28px;color:var(--ink);margin-bottom:10px;}
+.succ-p{font-size:15px;color:var(--ink3);line-height:1.6;margin-bottom:24px;font-weight:300;}
+.shr-btn{display:inline-flex;align-items:center;gap:7px;background:var(--cream);border:1px solid var(--border);border-radius:100px;padding:11px 22px;font-family:'Geist',sans-serif;font-size:14px;font-weight:500;color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s;}
+.shr-btn:hover{border-color:var(--violet);background:var(--vp);color:var(--violet);}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+.hr{height:1px;background:var(--bl);}
+footer{border-top:1px solid var(--bl);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.fl{font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;color:var(--ink);}
+.fl span{color:var(--violet);}
+.fmid{font-size:13px;color:var(--ink4);}
+.flinks{display:flex;gap:22px;}
+.flinks a{font-size:13px;color:var(--ink4);text-decoration:none;transition:color .2s;}
+.flinks a:hover{color:var(--ink);}
+
+/* ══════════════════════════════
+   ANIMATIONS
+══════════════════════════════ */
+@keyframes riseIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
+.reveal.vis{opacity:1;transform:translateY(0);}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+
+/* Mobile menu button — hidden on desktop */
+.mob-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px;width:36px;height:36px;justify-content:center;align-items:center;}
+.mob-ham span{display:block;width:20px;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s;}
+.mob-ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.mob-ham.open span:nth-child(2){opacity:0;}
+.mob-ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.mob-drawer{display:none;position:fixed;top:60px;left:0;right:0;z-index:190;background:rgba(247,244,238,0.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bl);max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;}
+.mob-drawer.open{max-height:260px;padding:8px 0 20px;}
+.mob-drawer a,.mob-drawer button{display:block;width:100%;text-align:left;padding:13px 24px;font-family:'Geist',sans-serif;font-size:15px;color:var(--ink3);text-decoration:none;background:none;border:none;cursor:pointer;}
+.mob-drawer a:hover,.mob-drawer button:hover{color:var(--ink);}
+.mob-drawer .mob-cta{margin:8px 20px 0;width:calc(100% - 40px);background:var(--violet);color:#fff;border-radius:10px;text-align:center;font-weight:500;padding:13px 20px;}
+
+/* ── 1200px+ large screens */
+@media(min-width:1200px){
+  .sec{padding:100px 56px;}
+  .news-col{padding:52px 56px;}
+  .news-masthead{padding:32px 56px 24px;}
+  .news-footer-bar{padding:14px 56px;}
+}
+
+/* ── 769px–1024px small laptop */
+@media(min-width:769px) and (max-width:1024px){
+  nav{padding:0 28px;}
+  .sec{padding:72px 28px;}
+  .news-col{padding:36px 32px;}
+  .news-masthead{padding:22px 32px 18px;}
+  .news-footer-bar{padding:12px 32px;}
+  .wc{padding:40px 32px;}
+  .rm-inner{padding:72px 28px;}
+  .form-card{padding:36px 32px;}
+  footer{padding:28px 28px;}
+  .reel-bg{grid-template-columns:repeat(4,1fr);}
+  .reel-col:nth-child(5),.reel-col:nth-child(6){display:none;}
+}
+
+/* ── 481px–768px tablet */
+@media(min-width:481px) and (max-width:768px){
+  nav{padding:0 20px;}
+  .nav-r .nl,.nav-r .nb{display:none;}
+  .mob-ham{display:flex;}
+  .mob-drawer{display:block;}
+  .hero{padding:72px 20px 56px;min-height:auto;}
+  .reel-bg{grid-template-columns:repeat(3,1fr);}
+  .reel-col:nth-child(4),.reel-col:nth-child(5),.reel-col:nth-child(6){display:none;}
+  .hero-content{max-width:100%;}
+  .score-float{max-width:100%;margin-top:40px;}
+  .email-row{max-width:100%;}
+  .sec{padding:64px 20px;}
+  .fg,.sg,.wg{grid-template-columns:1fr;}
+  .news-body{grid-template-columns:1fr;}
+  .news-divider{display:none;}
+  .news-col{padding:32px 20px;}
+  .news-masthead{padding:20px 20px 16px;flex-direction:column;gap:6px;}
+  .news-footer-bar{padding:12px 20px;flex-wrap:wrap;}
+  .wc{padding:36px 28px;}
+  .rm-inner{padding:64px 20px;}
+  .rm-list::before{left:27px;}
+  .frow{grid-template-columns:1fr;}
+  .form-card{padding:28px 20px;}
+  .form-wrap{max-width:100%;}
+  footer{flex-direction:column;align-items:flex-start;padding:28px 20px;gap:20px;}
+}
+
+/* ── max 480px mobile */
+@media(max-width:480px){
+  nav{padding:0 16px;height:52px;}
+  .mob-drawer{top:52px;}
+  .nav-r .nl,.nav-r .nb{display:none;}
+  .mob-ham{display:flex;}
+  .mob-drawer{display:block;}
+  .logo{font-size:18px;}
+  .top-scroller{height:32px;}
+  .ts-item{font-size:11px;padding:0 20px;}
+  .hero{padding:56px 16px 44px;min-height:auto;}
+  .reel-bg{grid-template-columns:repeat(2,1fr);}
+  .reel-col:nth-child(3),.reel-col:nth-child(4),.reel-col:nth-child(5),.reel-col:nth-child(6){display:none;}
+  .reel-overlay{background:radial-gradient(ellipse 90% 50% at 50% 38%,rgba(247,244,238,.98) 0%,rgba(247,244,238,.9) 28%,rgba(247,244,238,.6) 50%,rgba(247,244,238,.15) 68%,transparent 82%),linear-gradient(to bottom,rgba(247,244,238,1) 0%,transparent 10%,transparent 88%,rgba(247,244,238,1) 100%);}
+  .hero-content{max-width:100%;}
+  .hero-h1{font-size:clamp(32px,10vw,46px);line-height:.97;}
+  .hero-sub{font-size:15px;max-width:100%;margin-bottom:28px;}
+  .hero-badge{font-size:11px;margin-bottom:20px;}
+  .email-row{flex-direction:column;max-width:100%;gap:8px;}
+  .ei,.cbtn{width:100%;}
+  .cbtn{text-align:center;}
+  .proof-row{flex-wrap:wrap;justify-content:center;}
+  .score-float{max-width:100%;margin-top:32px;padding:16px;}
+  .sf-bars{display:none;}
+  .sec{padding:52px 16px;}
+  h2{font-size:clamp(26px,8vw,40px);}
+  .lead{font-size:15px;margin-bottom:32px;}
+  .fg{grid-template-columns:1fr;gap:0;}
+  .fc{padding:26px 18px;}
+  .sg{grid-template-columns:1fr;}
+  .sc{padding:28px 18px;border-right:none;border-bottom:1px solid var(--bl);}
+  .sc:last-child{border-bottom:none;}
+  .sno{font-size:54px;margin-bottom:12px;}
+  .wg{grid-template-columns:1fr;gap:12px;}
+  .wc{padding:28px 18px;}
+  .wtitle{font-size:22px;}
+  .news-body{grid-template-columns:1fr;}
+  .news-divider{display:none;}
+  .news-col{padding:24px 16px;}
+  .news-stat{font-size:clamp(44px,13vw,68px);}
+  .news-headline{font-size:18px;}
+  .news-masthead{padding:16px 16px 12px;flex-direction:column;gap:4px;}
+  .nm-date{display:none;}
+  .news-footer-bar{padding:10px 16px;flex-wrap:wrap;gap:8px;}
+  .rm-inner{padding:52px 16px;}
+  .rm-list::before{left:22px;}
+  .rm-node{width:44px;height:44px;font-size:13px;}
+  .rm-item{gap:16px;}
+  .rm-title{font-size:20px;}
+  .rm-chips{gap:5px;}
+  .rm-chip{font-size:11px;padding:3px 8px;}
+  .frow{grid-template-columns:1fr;}
+  .form-card{padding:20px 16px;}
+  .form-wrap{max-width:100%;}
+  footer{flex-direction:column;align-items:flex-start;padding:20px 16px;gap:14px;}
+  .flinks{gap:14px;}
+  .mq-item{padding:0 18px;font-size:12px;}
+}
+
+.fi.err{border-color:#E24B4A!important;box-shadow:0 0 0 3px rgba(226,75,74,0.1)!important;}
+.field-err{font-size:11px;color:#E24B4A;margin-top:4px;display:none;}
+.field-err.show{display:block;}
+.sbtn:disabled{opacity:0.55;cursor:not-allowed;transform:none!important;}
+</style>
+</head>
+<body>
+
+<!-- ══ TOP ANNOUNCEMENT SCROLLER ══ -->
+<div class="top-scroller">
+  <div class="top-scroller-track" id="tst">
+    <span class="ts-item"><span class="ts-dot" style="background:#22C55E"></span>🚀 Syncfluence is launching — <em>join the waitlist for 3 months free</em></span>
+    <span class="ts-item"><span class="ts-dot" style="background:#EF4444"></span>₹4,200 Cr lost yearly to fake influencer engagement in India</span>
+    <span class="ts-item"><span class="ts-dot" style="background:#5B4CF5"></span>✦ <em>Early access members</em> get a free Creator Risk Score audit worth ₹4,999</span>
+    <span class="ts-item"><span class="ts-dot" style="background:#F59E0B"></span>India has 100M+ creators — and <em>zero unified trust standard.</em> Until now.</span>
+    <span class="ts-item"><span class="ts-dot" style="background:#22C55E"></span>68% of influencer campaigns miss ROI targets — <em>Syncfluence changes that</em></span>
+    <span class="ts-item"><span class="ts-dot" style="background:#5B4CF5"></span>AI-powered Creator Risk Score → get the truth in <em>30 seconds</em></span>
+    <span class="ts-item"><span class="ts-dot" style="background:#EF4444"></span>🔥 <em>247 brands & creators</em> already on the waitlist — don't miss your spot</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ts-item"><span class="ts-dot" style="background:#22C55E"></span>🚀 Syncfluence is launching — <em>join the waitlist for 3 months free</em></span>
+    <span class="ts-item"><span class="ts-dot" style="background:#EF4444"></span>₹4,200 Cr lost yearly to fake influencer engagement in India</span>
+    <span class="ts-item"><span class="ts-dot" style="background:#5B4CF5"></span>✦ <em>Early access members</em> get a free Creator Risk Score audit worth ₹4,999</span>
+    <span class="ts-item"><span class="ts-dot" style="background:#F59E0B"></span>India has 100M+ creators — and <em>zero unified trust standard.</em> Until now.</span>
+    <span class="ts-item"><span class="ts-dot" style="background:#22C55E"></span>68% of influencer campaigns miss ROI targets — <em>Syncfluence changes that</em></span>
+    <span class="ts-item"><span class="ts-dot" style="background:#5B4CF5"></span>AI-powered Creator Risk Score → get the truth in <em>30 seconds</em></span>
+    <span class="ts-item"><span class="ts-dot" style="background:#EF4444"></span>🔥 <em>247 brands & creators</em> already on the waitlist — don't miss your spot</span>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="logo">Sync<span>fluence</span></div>
+  <div class="nav-r">
+    <a class="nl" href="#features">Product</a>
+    <a class="nl" href="#roadmap">Roadmap</a>
+    <a class="nl" href="#who">Who it's for</a>
+    <button class="nb" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
+    <button class="mob-ham" id="mh" onclick="var m=document.getElementById('md'),b=this;b.classList.toggle('open');m.classList.toggle('open');" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob-drawer" id="md">
+  <a href="#features" onclick="document.getElementById('mh').classList.remove('open');document.getElementById('md').classList.remove('open');">Product</a>
+  <a href="#roadmap" onclick="document.getElementById('mh').classList.remove('open');document.getElementById('md').classList.remove('open');">Roadmap</a>
+  <a href="#who" onclick="document.getElementById('mh').classList.remove('open');document.getElementById('md').classList.remove('open');">Who it's for</a>
+  <button class="mob-cta" onclick="document.getElementById('mh').classList.remove('open');document.getElementById('md').classList.remove('open');document.getElementById('waitlist').scrollIntoView({behavior:'smooth'});">Join Waitlist →</button>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+
+  <!-- REEL BACKGROUND -->
+  <div class="reel-bg" aria-hidden="true">
+    <!-- col 1 -->
+    <div class="reel-col">
+      <div class="reel-card rc-a"><div class="reel-inner"><div class="reel-photo">🌸</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">84K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">1.2K</div></div></div><div class="reel-bottom"><div class="reel-name">@priyacreates</div><div class="reel-stat">1.2M · Beauty</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-c"><div class="reel-inner"><div class="reel-photo">💻</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">210K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">4.1K</div></div></div><div class="reel-bottom"><div class="reel-name">@techsahil</div><div class="reel-stat">2.1M · Tech</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-e"><div class="reel-inner"><div class="reel-photo">👗</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">312K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">8.9K</div></div></div><div class="reel-bottom"><div class="reel-name">@stylebyneha</div><div class="reel-stat">3.4M · Fashion</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-b"><div class="reel-inner"><div class="reel-photo">💪</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">76K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">2.3K</div></div></div><div class="reel-bottom"><div class="reel-name">@fitrahul</div><div class="reel-stat">890K · Fitness</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-a"><div class="reel-inner"><div class="reel-photo">🌸</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">84K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">1.2K</div></div></div><div class="reel-bottom"><div class="reel-name">@priyacreates</div><div class="reel-stat">1.2M · Beauty</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-c"><div class="reel-inner"><div class="reel-photo">💻</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">210K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">4.1K</div></div></div><div class="reel-bottom"><div class="reel-name">@techsahil</div><div class="reel-stat">2.1M · Tech</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+    </div>
+    <!-- col 2 -->
+    <div class="reel-col">
+      <div class="reel-card rc-f"><div class="reel-inner"><div class="reel-photo">✈️</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">156K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">3.4K</div></div></div><div class="reel-bottom"><div class="reel-name">@travelwithkaran</div><div class="reel-stat">1.8M · Travel</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-d"><div class="reel-inner"><div class="reel-photo">🍕</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">52K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">980</div></div></div><div class="reel-bottom"><div class="reel-name">@foodiemaya</div><div class="reel-stat">640K · Food</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-b"><div class="reel-inner"><div class="reel-photo">😂</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">490K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">18K</div></div></div><div class="reel-bottom"><div class="reel-name">@comedywala</div><div class="reel-stat">5.2M · Comedy</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-g"><div class="reel-inner"><div class="reel-photo">✨</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">67K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">1.5K</div></div></div><div class="reel-bottom"><div class="reel-name">@skincarebyshweta</div><div class="reel-stat">780K · Beauty</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-f"><div class="reel-inner"><div class="reel-photo">✈️</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">156K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">3.4K</div></div></div><div class="reel-bottom"><div class="reel-name">@travelwithkaran</div><div class="reel-stat">1.8M · Travel</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-d"><div class="reel-inner"><div class="reel-photo">🍕</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">52K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">980</div></div></div><div class="reel-bottom"><div class="reel-name">@foodiemaya</div><div class="reel-stat">640K · Food</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+    </div>
+    <!-- col 3 -->
+    <div class="reel-col">
+      <div class="reel-card rc-h"><div class="reel-inner"><div class="reel-photo">🏋️</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">88K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">2.1K</div></div></div><div class="reel-bottom"><div class="reel-name">@gymwithvikram</div><div class="reel-stat">920K · Fitness</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-a"><div class="reel-inner"><div class="reel-photo">💃</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">380K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">12K</div></div></div><div class="reel-bottom"><div class="reel-name">@dancewithanita</div><div class="reel-stat">4.1M · Dance</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-e"><div class="reel-inner"><div class="reel-photo">👶</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">94K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">3.2K</div></div></div><div class="reel-bottom"><div class="reel-name">@momlife.priya</div><div class="reel-stat">1.1M · Lifestyle</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-c"><div class="reel-inner"><div class="reel-photo">⚙️</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">61K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">1.8K</div></div></div><div class="reel-bottom"><div class="reel-name">@techgurudev</div><div class="reel-stat">680K · Tech</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-h"><div class="reel-inner"><div class="reel-photo">🏋️</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">88K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">2.1K</div></div></div><div class="reel-bottom"><div class="reel-name">@gymwithvikram</div><div class="reel-stat">920K · Fitness</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-a"><div class="reel-inner"><div class="reel-photo">💃</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">380K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">12K</div></div></div><div class="reel-bottom"><div class="reel-name">@dancewithanita</div><div class="reel-stat">4.1M · Dance</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+    </div>
+    <!-- col 4 -->
+    <div class="reel-col">
+      <div class="reel-card rc-b"><div class="reel-inner"><div class="reel-photo">👨‍🍳</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">224K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">6.7K</div></div></div><div class="reel-bottom"><div class="reel-name">@chefrohan</div><div class="reel-stat">2.6M · Food</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-f"><div class="reel-inner"><div class="reel-photo">💰</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">118K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">4.2K</div></div></div><div class="reel-bottom"><div class="reel-name">@moneymindset.in</div><div class="reel-stat">1.4M · Finance</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-d"><div class="reel-inner"><div class="reel-photo">🧘</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">73K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">1.9K</div></div></div><div class="reel-bottom"><div class="reel-name">@yogawithsmita</div><div class="reel-stat">870K · Health</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-g"><div class="reel-inner"><div class="reel-photo">🎮</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">345K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">11K</div></div></div><div class="reel-bottom"><div class="reel-name">@gamingguru</div><div class="reel-stat">3.8M · Gaming</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-b"><div class="reel-inner"><div class="reel-photo">👨‍🍳</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">224K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">6.7K</div></div></div><div class="reel-bottom"><div class="reel-name">@chefrohan</div><div class="reel-stat">2.6M · Food</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-f"><div class="reel-inner"><div class="reel-photo">💰</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">118K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">4.2K</div></div></div><div class="reel-bottom"><div class="reel-name">@moneymindset.in</div><div class="reel-stat">1.4M · Finance</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+    </div>
+    <!-- col 5 -->
+    <div class="reel-col">
+      <div class="reel-card rc-c"><div class="reel-inner"><div class="reel-photo">🎨</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">44K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">890</div></div></div><div class="reel-bottom"><div class="reel-name">@artbymeera</div><div class="reel-stat">510K · Art</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-a"><div class="reel-inner"><div class="reel-photo">💄</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">168K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">5.1K</div></div></div><div class="reel-bottom"><div class="reel-name">@beautybysonia</div><div class="reel-stat">1.9M · Beauty</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-h"><div class="reel-inner"><div class="reel-photo">🏃</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">63K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">1.4K</div></div></div><div class="reel-bottom"><div class="reel-name">@runwithraj</div><div class="reel-stat">760K · Sports</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-e"><div class="reel-inner"><div class="reel-photo">👨‍💻</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">38K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">720</div></div></div><div class="reel-bottom"><div class="reel-name">@codingwala</div><div class="reel-stat">430K · Tech</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-c"><div class="reel-inner"><div class="reel-photo">🎨</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">44K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">890</div></div></div><div class="reel-bottom"><div class="reel-name">@artbymeera</div><div class="reel-stat">510K · Art</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-a"><div class="reel-inner"><div class="reel-photo">💄</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">168K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">5.1K</div></div></div><div class="reel-bottom"><div class="reel-name">@beautybysonia</div><div class="reel-stat">1.9M · Beauty</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+    </div>
+    <!-- col 6 -->
+    <div class="reel-col">
+      <div class="reel-card rc-g"><div class="reel-inner"><div class="reel-photo">👠</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">196K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">5.8K</div></div></div><div class="reel-bottom"><div class="reel-name">@fashionbyria</div><div class="reel-stat">2.2M · Fashion</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-d"><div class="reel-inner"><div class="reel-photo">🌿</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">97K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">2.7K</div></div></div><div class="reel-bottom"><div class="reel-name">@wellnesswithsim</div><div class="reel-stat">1.1M · Health</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-b"><div class="reel-inner"><div class="reel-photo">📸</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">56K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">1.1K</div></div></div><div class="reel-bottom"><div class="reel-name">@photographyindia</div><div class="reel-stat">670K · Art</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-f"><div class="reel-inner"><div class="reel-photo">🚀</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">84K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">3.6K</div></div></div><div class="reel-bottom"><div class="reel-name">@startupstories</div><div class="reel-stat">980K · Business</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-g"><div class="reel-inner"><div class="reel-photo">👠</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">196K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">5.8K</div></div></div><div class="reel-bottom"><div class="reel-name">@fashionbyria</div><div class="reel-stat">2.2M · Fashion</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+      <div class="reel-card rc-d"><div class="reel-inner"><div class="reel-photo">🌿</div><div class="reel-actions"><div class="reel-act"><div class="reel-act-ic">♥</div><div class="reel-act-ct">97K</div></div><div class="reel-act"><div class="reel-act-ic">💬</div><div class="reel-act-ct">2.7K</div></div></div><div class="reel-bottom"><div class="reel-name">@wellnesswithsim</div><div class="reel-stat">1.1M · Health</div><div class="reel-music"><div class="reel-music-bar"><span style="height:5px"></span><span></span><span></span><span></span><span></span></div></div></div></div></div>
+    </div>
+  </div>
+  <!-- Separate vignette overlay -->
+  <div class="reel-overlay" aria-hidden="true"></div>
+
+  <!-- HERO CONTENT -->
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-dot">✦</div>
+      <span><span id="heroCount">247</span> brands & creators already waiting</span>
+    </div>
+    <h1 class="hero-h1">
+      Every creator<br><span class="vi">deserves a score.</span>
+    </h1>
+    <p class="hero-sub">
+      Syncfluence gives every creator a <strong>Creator Risk Score</strong> — so brands know exactly who to trust, and creators know exactly how to grow.
+    </p>
+    <div class="email-row">
+      <input class="ei" type="email" id="heroEmail" placeholder="your@email.com" />
+      <button class="cbtn" onclick="jumpForm()">Get early access →</button>
+    </div>
+    <div class="proof-row">
+      <div class="avs">
+        <div class="av" style="background:linear-gradient(135deg,#8B7FF8,#5B4CF5)">A</div>
+        <div class="av" style="background:linear-gradient(135deg,#F87171,#DC2626)">R</div>
+        <div class="av" style="background:linear-gradient(135deg,#34D399,#059669)">K</div>
+        <div class="av" style="background:linear-gradient(135deg,#FBBF24,#D97706)">M</div>
+        <div class="av" style="background:linear-gradient(135deg,#A78BFA,#7C3AED)">S</div>
+      </div>
+      <span>No credit card · Free early access</span>
+    </div>
+
+    <!-- SCORE CARD -->
+    <div class="score-float">
+      <div class="sf-hd">
+        <div class="sf-lbl">Creator Risk Score™</div>
+        <div class="sf-ok">Verified</div>
+      </div>
+      <div class="sf-cr">
+        <div class="sf-av">P</div>
+        <div>
+          <div class="sf-nm">Priya Mehta</div>
+          <div class="sf-hn">@priyacreates · 1.2M followers</div>
+        </div>
+      </div>
+      <div class="sf-row">
+        <div class="sf-ring">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7B6EF6"/><stop offset="100%" stop-color="#5B4CF5"/></linearGradient></defs>
+            <circle class="sr-bg" cx="40" cy="40" r="32"/>
+            <circle class="sr-fg" cx="40" cy="40" r="32"/>
+          </svg>
+          <div class="sf-mid"><div class="sr-n">87</div><div class="sr-d">/100</div></div>
+        </div>
+        <div class="sf-bars">
+          <div class="sbar-r"><span class="sbar-l">Real audience</span><div class="sbar-w"><div class="sbar-f" style="width:94%;background:var(--violet)"></div></div><span class="sbar-v">94%</span></div>
+          <div class="sbar-r"><span class="sbar-l">Engagement</span><div class="sbar-w"><div class="sbar-f" style="width:82%;background:#22C55E"></div></div><span class="sbar-v">6.8%</span></div>
+          <div class="sbar-r"><span class="sbar-l">Bot risk</span><div class="sbar-w"><div class="sbar-f" style="width:10%;background:#F59E0B"></div></div><span class="sbar-v">Low</span></div>
+        </div>
+      </div>
+      <div class="sf-tags">
+        <span class="stag stag-g">✓ Authentic</span>
+        <span class="stag stag-v">Beauty · Fashion</span>
+        <span class="stag stag-a">Predicted ROI: 3.8×</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ACTIVITY MARQUEE ══ -->
+<div class="mq-wrap">
+  <div class="mq-track">
+    <span class="mq-item"><span class="mq-dot" style="background:#22C55E"></span>Score generated · @fitnesswithrahul · 91/100</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#EF4444"></span>23% fake followers detected · brand saved ₹2.4L</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#5B4CF5"></span>Perfect match found · predicted 4.1× ROI</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#F59E0B"></span>Content strategy generated · 3 video hooks delivered</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#22C55E"></span>₹8L campaign closed · zero guesswork</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#5B4CF5"></span>1,200+ creators audited today</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#EF4444"></span>Bot farm exposed · 41% inauthentic followers</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#22C55E"></span>Score generated · @fitnesswithrahul · 91/100</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#EF4444"></span>23% fake followers detected · brand saved ₹2.4L</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#5B4CF5"></span>Perfect match found · predicted 4.1× ROI</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#F59E0B"></span>Content strategy generated · 3 video hooks delivered</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#22C55E"></span>₹8L campaign closed · zero guesswork</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#5B4CF5"></span>1,200+ creators audited today</span>
+    <span class="mq-item"><span class="mq-dot" style="background:#EF4444"></span>Bot farm exposed · 41% inauthentic followers</span>
+  </div>
+</div>
+
+<!-- ══ NEWSPAPER STATS ══ -->
+<section class="news-sec">
+  <div class="news-masthead">
+    <div>
+      <div class="nm-title">The Creator Economy Gazette</div>
+      <div class="nm-tagline">India's Creator Intelligence Report · Special Edition</div>
+    </div>
+    <div class="nm-date">Est. 2025 · Volume I · The Fraud Issue</div>
+  </div>
+  <div class="news-body">
+    <div class="news-col reveal">
+      <div class="news-kicker">Annual loss to fraud</div>
+      <div class="news-stat"><span class="num" data-target="4200" data-prefix="₹" data-suffix="Cr">₹0Cr</span></div>
+      <div class="news-headline">Brands bleed crores into ghost audiences every single year</div>
+      <div class="news-body-txt">Fake followers. Purchased likes. Bot-driven comments. The creator economy's dirty secret costs Indian brands more than most Series B rounds — and nobody was counting. Until now.</div>
+    </div>
+    <div class="news-divider"></div>
+    <div class="news-col reveal d1">
+      <div class="news-kicker">Campaigns missing target</div>
+      <div class="news-stat"><span class="num" data-target="68" data-suffix="%">0%</span></div>
+      <div class="news-headline">Of influencer deals fail to deliver the promised return</div>
+      <div class="news-body-txt">Two in three campaigns fall short. Not because creators don't work hard — but because nobody verified whether their audiences were real before the contract was signed.</div>
+    </div>
+    <div class="news-divider"></div>
+    <div class="news-col reveal d2">
+      <div class="news-kicker">Creators in India</div>
+      <div class="news-stat"><span class="num" data-target="100" data-suffix="M+">0M+</span></div>
+      <div class="news-headline">A hundred million creators — and zero way to know who's genuine</div>
+      <div class="news-body-txt">The world's largest creator nation has no trust standard. No credit score. No verification layer. Syncfluence is building the infrastructure this industry has been waiting for.</div>
+    </div>
+  </div>
+  <div class="news-footer-bar">
+    <span class="nfb-item">SOURCE: FICCI-EY Report 2024</span><span class="nfb-sep">·</span>
+    <span class="nfb-item">INFLUENCER MARKETING HUB INDIA</span><span class="nfb-sep">·</span>
+    <span class="nfb-item">SYNCFLUENCE MARKET ANALYSIS</span>
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="feat-sec" id="features">
+  <div class="sec">
+    <div class="ey reveal">What we do</div>
+    <h2 class="reveal">The intelligence layer<br>the creator economy <em>needs.</em></h2>
+    <p class="lead reveal">Three tools. One platform. Total clarity on every creator, every campaign.</p>
+    <div class="fg">
+      <div class="fc reveal">
+        <div class="fi-ic">🛡</div>
+        <div class="fn">Fraud Detection</div>
+        <div class="fd">Fake followers, purchased likes, bot farms — our AI surfaces every red flag before you sign the deal. Not after.</div>
+      </div>
+      <div class="fc reveal d1">
+        <div class="fi-ic">🎯</div>
+        <div class="fn">Brand–Creator Matching</div>
+        <div class="fd">AI reads your brand's DNA and finds creators whose audiences are genuinely likely to buy — not just scroll past.</div>
+      </div>
+      <div class="fc reveal d2">
+        <div class="fi-ic">✦</div>
+        <div class="fn">Creator Growth Engine</div>
+        <div class="fd">Script ideas, video hooks, engagement fixes. Creators get a personal AI coach that makes every campaign perform better.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="steps-sec">
+  <div class="sec">
+    <div class="ey reveal" style="display:block;text-align:center">How it works</div>
+    <h2 class="reveal" style="text-align:center">Clarity in <em>30 seconds.</em></h2>
+    <p class="lead reveal" style="margin:0 auto 48px;text-align:center;max-width:400px">No setup. No demo calls. Just paste a handle.</p>
+    <div class="sg">
+      <div class="sc reveal">
+        <div class="sno">01</div>
+        <div class="sname">Enter any creator's handle</div>
+        <div class="sdesc">Instagram, YouTube, TikTok. Paste the handle and hit go. That's literally it.</div>
+      </div>
+      <div class="sc reveal d1">
+        <div class="sno">02</div>
+        <div class="sname">AI runs 40 checks instantly</div>
+        <div class="sdesc">Follower quality, engagement authenticity, growth patterns, bot probability — all scored in 30 seconds.</div>
+      </div>
+      <div class="sc reveal d2">
+        <div class="sno">03</div>
+        <div class="sname">Decide with full confidence</div>
+        <div class="sdesc">Your Creator Risk Score tells you what to pay, what to expect, and whether to say yes. No gut feel needed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHO FOR ══ -->
+<section id="who">
+  <div class="sec">
+    <div class="ey reveal" style="display:block;text-align:center">Who it's for</div>
+    <h2 class="reveal" style="text-align:center;margin-bottom:44px">Built for both sides<br>of the creator economy.</h2>
+    <div class="wg">
+      <div class="wc wc-dk reveal">
+        <div class="wtg">For brands & agencies</div>
+        <div class="wtitle">Stop funding someone else's fake following.</div>
+        <div class="wbody">Every rupee spent on a ghost audience is a rupee that won't come back. Syncfluence makes sure every deal is earned.</div>
+        <ul class="cklist">
+          <li><span class="ck">✓</span>Fake audience detection before you commit</li>
+          <li><span class="ck">✓</span>AI creator matching with ROI predictions</li>
+          <li><span class="ck">✓</span>Pricing guidance so you never overpay</li>
+          <li><span class="ck">✓</span>End-to-end campaign dashboard</li>
+        </ul>
+      </div>
+      <div class="wc wc-lt reveal d1">
+        <div class="wtg">For creators</div>
+        <div class="wtitle">Prove you're the real deal. Get paid accordingly.</div>
+        <div class="wbody">Your audience is real. Your work is real. Now you can prove it — and command rates that match your actual worth.</div>
+        <ul class="cklist">
+          <li><span class="ck">✓</span>Free Creator Risk Score — know where you stand</li>
+          <li><span class="ck">✓</span>AI content ideas, scripts & video hooks</li>
+          <li><span class="ck">✓</span>Get discovered by top D2C brands</li>
+          <li><span class="ck">✓</span>See exactly what to fix to win better deals</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ROADMAP ══ -->
+<section class="rm-sec" id="roadmap">
+  <div class="rm-inner">
+    <div class="rm-ey reveal">Roadmap</div>
+    <h2 class="rm-h2 reveal">Where we're going.<br><em>Quarter by quarter.</em></h2>
+    <p class="rm-sub reveal">We're building in public. Here's exactly what's coming and when — no vague promises.</p>
+
+    <div class="rm-list">
+
+      <!-- Q1 -->
+      <div class="rm-item reveal">
+        <div class="rm-node rm-node-done">
+          Q1
+          <span class="rm-status rm-status-done">✓</span>
+        </div>
+        <div class="rm-body">
+          <div class="rm-q">Q1 2025 · Foundation</div>
+          <div class="rm-title">CRS Engine + Creator Insights</div>
+          <div class="rm-desc">Building the core Creator Risk Score algorithm. 40+ signal analysis across Instagram and YouTube. Fake follower detection, engagement quality scoring, and bot probability rating. First 100 beta creators onboarded.</div>
+          <div class="rm-chips">
+            <span class="rm-chip done">CRS Algorithm</span>
+            <span class="rm-chip done">Instagram API</span>
+            <span class="rm-chip done">YouTube API</span>
+            <span class="rm-chip done">Beta Launch</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="rm-item reveal d1">
+        <div class="rm-node rm-node-active">
+          Q2
+          <span class="rm-status rm-status-active">●</span>
+        </div>
+        <div class="rm-body">
+          <div class="rm-q">Q2 2025 · Now Building</div>
+          <div class="rm-title">Sponsorship Dashboard + AI Video Ideas</div>
+          <div class="rm-desc">Brands post campaigns, creators apply — all in one place. AI-generated content strategies, video hook suggestions, and script outlines for every creator. First paid brand partnerships launching this quarter.</div>
+          <div class="rm-chips">
+            <span class="rm-chip active">Sponsorship Dashboard</span>
+            <span class="rm-chip active">AI Content Engine</span>
+            <span class="rm-chip">Brand Onboarding</span>
+            <span class="rm-chip">Paid Tiers</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="rm-item reveal d2">
+        <div class="rm-node rm-node-future">Q3</div>
+        <div class="rm-body">
+          <div class="rm-q">Q3 2025 · Coming Soon</div>
+          <div class="rm-title">Brand Intelligence + Enterprise Plans</div>
+          <div class="rm-desc">Deep brand analytics — track campaign performance, measure real ROI, compare creators head-to-head. Enterprise dashboards for agencies managing 20+ campaigns. TikTok integration. API access for third-party platforms.</div>
+          <div class="rm-chips">
+            <span class="rm-chip">Brand Analytics</span>
+            <span class="rm-chip">Enterprise Tier</span>
+            <span class="rm-chip">TikTok API</span>
+            <span class="rm-chip">CRS API</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="rm-item reveal d3">
+        <div class="rm-node rm-node-future">Q4</div>
+        <div class="rm-body">
+          <div class="rm-q">Q4 2025 · The Big One</div>
+          <div class="rm-title">Global Expansion + Creator Marketplace</div>
+          <div class="rm-desc">Expanding to Southeast Asia — Indonesia, Philippines, Bangladesh. Launching the full creator marketplace where brands and creators transact directly, with Syncfluence as the trust layer. Target: 1L+ creators scored, 500+ brand partners.</div>
+          <div class="rm-chips">
+            <span class="rm-chip">SEA Expansion</span>
+            <span class="rm-chip">Creator Marketplace</span>
+            <span class="rm-chip">Multilingual</span>
+            <span class="rm-chip">Payments</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ WAITLIST FORM ══ -->
+<section class="form-sec" id="waitlist">
+  <div class="sec">
+    <div class="form-wrap">
+      <div class="form-hd reveal">
+        <div class="pill-cnt">
+          <span>✦</span>
+          <span id="formCount">247</span> on the waitlist · spots limited
+        </div>
+        <h2>Be first in.<br><em>Get more out.</em></h2>
+        <p class="lead" style="margin-bottom:0;max-width:100%">Join today and unlock 3 months free at launch — plus a personal CRS audit worth ₹4,999.</p>
+      </div>
+      <div class="form-card reveal d1">
+        <div id="formBody">
+          <form class="ffields" onsubmit="handleSubmit(event)">
+            <div class="frow">
+              <div><label>Full name</label><input class="fi" type="text" id="fn" placeholder="Rahul Sharma" autocomplete="name" /><span class="field-err" id="fn-err"></span></div>
+              <div><label>Work email</label><input class="fi" type="email" id="fe" placeholder="rahul@brand.com" autocomplete="email" /><span class="field-err" id="fe-err"></span></div>
+            </div>
+            <div>
+              <label>I am a...</label>
+              <select class="fi" id="ft" required>
+                <option value="" disabled selected>Select your role</option>
+                <option value="Brand">Brand / Advertiser</option>
+                <option value="Creator">Creator / Influencer</option>
+                <option value="Agency">Marketing Agency</option>
+              </select><span class="field-err" id="ft-err"></span>
+            </div>
+            <div>
+              <label>Handle <span style="color:var(--ink4);font-weight:400">(optional)</span></label>
+              <input class="fi" type="text" id="fh" placeholder="@yourhandle" />
+            </div>
+            <button type="submit" class="sbtn">Claim my early access →</button>
+          </form>
+          <p class="fnote">By joining you agree to our <a href="#">Privacy Policy</a>. No spam, ever.</p>
+        </div>
+        <div class="succ" id="successState">
+          <div class="succ-ic">✓</div>
+          <div class="succ-h">You're on the list.</div>
+          <p class="succ-p">We'll reach out with your early access and free CRS audit soon. Welcome to the future of creator intelligence.</p>
+          <button class="shr-btn" onclick="doShare()"><span>↗</span> Share & skip the queue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<div class="hr"></div>
+<footer>
+  <div>
+    <div class="fl">Sync<span>fluence</span></div>
+    <div class="fmid" style="margin-top:4px">The Trust Layer for the Creator Economy · Made in India 🇮🇳</div>
+  </div>
+  <div class="flinks">
+    <a href="#">Privacy Policy</a>
+    <a href="/cdn-cgi/l/email-protection#6f070a0303002f1c16010c09031a0a010c0a410c0002">Contact</a>
+  </div>
+  <div class="fmid">© 2025 Syncfluence</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── COUNTERS */
+let count = 247;
+function syncC() {
+  document.getElementById('heroCount').textContent = count;
+  document.getElementById('formCount').textContent = count;
+}
+function bump() { count += Math.floor(Math.random()*2)+1; syncC(); setTimeout(bump,(Math.random()*4+3)*60000); }
+setTimeout(bump, 120000);
+
+/* ── JUMP FORM */
+function jumpForm() {
+  const e = document.getElementById('heroEmail').value;
+  if (e) document.getElementById('fe').value = e;
+  document.getElementById('waitlist').scrollIntoView({behavior:'smooth'});
+}
+
+/* ── SUBMIT */
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzDDC5DdjxTi67yLnqKflleBB9-PJKt32Eu56VvfrmAgwGD7uEliNKXYAHc6gMYNrbeZw/exec';
+var _lastSubmit=0, _submitted=false;
+
+function _clrErr(id){var f=document.getElementById(id);if(f){f.classList.remove('err');}var e=document.getElementById(id+'-err');if(e){e.textContent='';e.classList.remove('show');}}
+function _showErr(id,msg){var f=document.getElementById(id);if(f){f.classList.add('err');f.focus();}var e=document.getElementById(id+'-err');if(e){e.textContent=msg;e.classList.add('show');}}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  if(_submitted){return;}
+  var now=Date.now();
+  if(now-_lastSubmit<30000&&_lastSubmit!==0){alert('Please wait 30 seconds before trying again.');return;}
+
+  var name=document.getElementById('fn').value.trim();
+  var email=document.getElementById('fe').value.trim().toLowerCase();
+  var type=document.getElementById('ft').value;
+  var handle=document.getElementById('fh').value.trim();
+
+  _clrErr('fn');_clrErr('fe');_clrErr('ft');
+
+  var valid=true;
+
+  /* Name: min 2 chars, letters only */
+  if(name.length<2){_showErr('fn','Please enter your full name');valid=false;}
+  else if(!/^[a-zA-Z\sऀ-ॿ\.\-]+$/.test(name)){_showErr('fn','Name should contain letters only');valid=false;}
+
+  /* Email: valid format */
+  if(valid||document.getElementById('fe-err').textContent===''){
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){_showErr('fe','Please enter a valid email address');valid=false;}
+    else{
+      /* Block disposable emails */
+      var bad=['mailinator.com','guerrillamail.com','tempmail.com','throwaway.email','yopmail.com','sharklasers.com','getairmail.com','fakeinbox.com','trashmail.com','maildrop.cc','dispostable.com','spam4.me','trashmail.me','mytemp.email'];
+      var dom=email.split('@')[1]||'';
+      if(bad.indexOf(dom)>-1){_showErr('fe','Please use a real email address');valid=false;}
+    }
+  }
+
+  /* Role required */
+  if(!type){_showErr('ft','Please select your role');valid=false;}
+
+  /* Honeypot: block if handle contains URL */
+  if(handle&&(handle.indexOf('http')>-1||handle.length>50)){valid=false;}
+
+  if(!valid){return;}
+
+  /* Disable button — prevent double submit */
+  var btn=document.querySelector('.sbtn');
+  btn.disabled=true;
+  btn.textContent='Joining...';
+
+  _lastSubmit=now;
+  _submitted=true;
+
+  var ts=new Date().toISOString();
+  var params='name='+encodeURIComponent(name)+'&email='+encodeURIComponent(email)+'&type='+encodeURIComponent(type)+'&handle='+encodeURIComponent(handle)+'&ts='+encodeURIComponent(ts);
+  fetch(SHEET_URL+'?'+params,{method:'GET',mode:'no-cors'});
+
+  count++;syncC();
+  document.getElementById('formBody').style.display='none';
+  document.getElementById('successState').style.display='block';
+}
+
+/* Live blur validation */
+window.addEventListener('load',function(){
+  var fn=document.getElementById('fn');
+  var fe=document.getElementById('fe');
+  if(fn){fn.addEventListener('blur',function(){var v=this.value.trim();if(v.length>0){if(v.length<2)_showErr('fn','Min 2 characters');else if(!/^[a-zA-Z\sऀ-ॿ\.\-]+$/.test(v))_showErr('fn','Letters only');else _clrErr('fn');}});}
+  if(fe){fe.addEventListener('blur',function(){var v=this.value.trim().toLowerCase();if(v.length>0){if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v))_showErr('fe','Invalid email');else _clrErr('fe');}});}
+});
+
+/* ── SHARE */
+function doShare() {
+  const t = 'Just joined the Syncfluence waitlist — an AI that gives every creator a trust score. If you work with influencers or are one, you need this.';
+  if (navigator.share) navigator.share({title:'Syncfluence',text:t,url:window.location.href});
+  else navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!'));
+}
+
+/* ── NEWSPAPER COUNT-UP */
+function countUp(el) {
+  const target = parseInt(el.dataset.target);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const duration = 2000;
+  const steps = 60;
+  const inc = target / steps;
+  let current = 0;
+  const interval = setInterval(() => {
+    current = Math.min(current + inc, target);
+    el.textContent = prefix + Math.floor(current).toLocaleString('en-IN') + suffix;
+    if (current >= target) clearInterval(interval);
+  }, duration / steps);
+}
+
+/* ── SCROLL REVEAL + TRIGGER COUNTUP */
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.classList.add('vis');
+      // trigger countup if inside news section
+      en.target.querySelectorAll && en.target.querySelectorAll('.num[data-target]').forEach(n => countUp(n));
+      ro.unobserve(en.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// Also observe news cols directly
+document.querySelectorAll('.news-col').forEach(col => {
+  const nums = col.querySelectorAll('.num[data-target]');
+  if (!nums.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting){nums.forEach(n=>countUp(n));obs.unobserve(en.target);}
+    });
+  },{threshold:0.3});
+  obs.observe(col);
+});
+</script>
+</body>
+</html>
